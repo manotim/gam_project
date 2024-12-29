@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ song.title }}</title>
+</head>
+<body>
+    <h1>{{ song.title }}</h1>
+    <p>Type: {{ song.song_type|title }}</p>
+    <p>Description: {{ song.description }}</p>
+    {% if song.song_type == 'audio' and song.audio_file %}
+        <audio controls>
+            <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    {% elif song.song_type == 'video' and song.video_file %}
+        <video controls width="600">
+            <source src="{{ song.video_file.url }}" type="video/mp4">
+            Your browser does not support the video element.
+        </video>
+    {% endif %}
+    {% if song.is_downloadable %}
+        <p><a href="{{ song.get_download_url }}">Download this song</a></p>
+    {% endif %}
+</body>
+</html>
