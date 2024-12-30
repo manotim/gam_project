@@ -28,3 +28,12 @@ class Song(models.Model):
             if self.song_type == self.VIDEO and self.video_file:
                 return self.video_file.url
         return None
+
+class Album(models.Model):
+    title = models.CharField(max_length=100)
+    release_date = models.DateField()
+    cover_image = models.ImageField(upload_to='albums/covers/')
+
+class Lyrics(models.Model):
+    song = models.OneToOneField(Song, on_delete=models.CASCADE)
+    content = models.TextField()
