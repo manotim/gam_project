@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ song.title }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>{{ song.title }}</h1>
     <p>Type: {{ song.song_type|title }}</p>
     <p>Description: {{ song.description }}</p>
@@ -21,5 +18,4 @@
     {% if song.is_downloadable %}
         <p><a href="{{ song.get_download_url }}">Download this song</a></p>
     {% endif %}
-</body>
-</html>
+{% endblock %}

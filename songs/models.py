@@ -1,5 +1,10 @@
 from django.db import models
 
+class Album(models.Model):
+    title = models.CharField(max_length=100)
+    release_date = models.DateField()
+    cover_image = models.ImageField(upload_to='albums/covers/')
+
 class Song(models.Model):
     AUDIO = 'audio'
     VIDEO = 'video'
@@ -16,6 +21,7 @@ class Song(models.Model):
     is_downloadable = models.BooleanField(default=False)
     uploaded_by = models.CharField(max_length=255, blank=True, null=True)
     upload_date = models.DateTimeField(auto_now_add=True)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='songs', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -29,10 +35,7 @@ class Song(models.Model):
                 return self.video_file.url
         return None
 
-class Album(models.Model):
-    title = models.CharField(max_length=100)
-    release_date = models.DateField()
-    cover_image = models.ImageField(upload_to='albums/covers/')
+
 
 class Lyrics(models.Model):
     song = models.OneToOneField(Song, on_delete=models.CASCADE)

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Assign "{{ song.title }}" to an Album</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="album">Select Album:</label>
+        <select name="album_id" id="album">
+            {% for album in albums %}
+                <option value="{{ album.id }}">{{ album.title }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Assign</button>
+    </form>
+{% endblock %}

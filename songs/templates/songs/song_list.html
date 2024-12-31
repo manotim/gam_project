@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Song List</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Song List</h1>
     <ul>
         {% for song in songs %}
             <li>
-                <a href="{{ song.id }}/">{{ song.title }}</a>
+                <a href="{% url 'song_detail' song.id %}">{{ song.title }}</a>
                 - {{ song.song_type|title }}
+                {% if song.album %}
+                    <strong>(Album: {{ song.album.title }})</strong>
+                {% else %}
+                    (No Album Assigned)
+                {% endif %}
                 {% if song.is_downloadable %}
                     (<a href="{{ song.get_download_url }}">Download</a>)
                 {% endif %}
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
