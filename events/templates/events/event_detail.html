@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ event.name }}</h1>
+<p><strong>Description:</strong> {{ event.description }}</p>
+<p><strong>Date:</strong> {{ event.date }}</p>
+<p><strong>Location:</strong> {{ event.location }}</p>
+
+{% if event.poster %}
+    <img src="{{ event.poster.url }}" alt="{{ event.name }}" width="300">
+{% endif %}
+
+<h2>Featured Singers</h2>
+<ul>
+    {% for singer in event.featured_singers.all %}
+        <li>{{ singer.name }} ({{ singer.position }})</li>
+    {% endfor %}
+</ul>
+
+<h2>Attendees</h2>
+<ul>
+    {% for attendee in attendees %}
+        <li>{{ attendee.name }} ({{ attendee.email }})</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'register_attendee' event.id %}" class="btn btn-primary">Register for Event</a>
+
+<h2>Sponsors</h2>
+<ul>
+    {% for sponsor in sponsors %}
+        <li>
+            <strong>{{ sponsor.name }}</strong>
+            {% if sponsor.logo %}
+                <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" width="100">
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

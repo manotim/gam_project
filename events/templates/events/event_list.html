@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Upcoming Events</h1>
+
+<!-- Search and Filter Form -->
+<form method="get" class="mb-4">
+    <input type="text" name="q" placeholder="Search by name or description" value="{{ request.GET.q }}">
+    <input type="date" name="date" value="{{ request.GET.date }}">
+    <input type="text" name="location" placeholder="Filter by location" value="{{ request.GET.location }}">
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+    {% for event in events %}
+        <li>
+            <h3><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></h3>
+            <p><strong>Date:</strong> {{ event.date }}</p>
+            <p><strong>Location:</strong> {{ event.location }}</p>
+            {% if event.poster %}
+                <img src="{{ event.poster.url }}" alt="{{ event.name }}" width="200">
+            {% endif %}
+        </li>
+    {% empty %}
+        <p>No events match your search criteria.</p>
+    {% endfor %}
+</ul>
+{% endblock %}
