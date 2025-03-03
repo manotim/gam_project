@@ -27,4 +27,19 @@
         {% endfor %}
     </div>
 </div>
+
+<h2>Recent Photos</h2>
+<ul>
+    {% for photo in recent_photos %}
+        <li><a href="{% url 'gallery_detail' photo.pk %}">{{ photo.title }}</a></li>
+    {% endfor %}
+</ul>
+
+<h2>Recent Videos</h2>
+<ul>
+    {% for video in recent_videos %}
+        <li><a href="{% url 'gallery_detail' video.pk %}">{{ video.title }}</a></li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

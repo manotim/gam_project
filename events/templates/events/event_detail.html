@@ -37,4 +37,20 @@
         </li>
     {% endfor %}
 </ul>
+
+<h2>Gallery</h2>
+<div class="gallery-items">
+    {% for item in event.gallery_items.all %}
+        <a href="{% url 'gallery_detail' item.pk %}">
+            {% if item.is_photo %}
+                <img src="{{ item.media_file.url }}" alt="{{ item.title }}" width="200">
+            {% elif item.is_video %}
+                <video width="200" controls>
+                    <source src="{{ item.media_file.url }}" type="video/mp4">
+                </video>
+            {% endif %}
+        </a>
+    {% endfor %}
+</div>
+
 {% endblock %}

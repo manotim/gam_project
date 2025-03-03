@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Gallery</h1>
+
+<h2>Photos</h2>
+<div class="gallery-photos">
+    {% for photo in photos %}
+        <div class="gallery-item">
+            <a href="{% url 'gallery_detail' photo.pk %}">
+                <img src="{{ photo.media_file.url }}" alt="{{ photo.title }}" width="200">
+            </a>
+            <p>{{ photo.title }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+<h2>Videos</h2>
+<div class="gallery-videos">
+    {% for video in videos %}
+        <div class="gallery-item">
+            <a href="{% url 'gallery_detail' video.pk %}">
+                <video width="320" height="240" controls>
+                    <source src="{{ video.media_file.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </a>
+            <p>{{ video.title }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

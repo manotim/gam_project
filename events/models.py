@@ -1,5 +1,6 @@
 from django.db import models
 from choir.models import Singer  # Ensure the Singer model is imported
+from gallery.models import Gallery
 
 class Event(models.Model):
     name = models.CharField(max_length=255)
@@ -8,6 +9,7 @@ class Event(models.Model):
     location = models.CharField(max_length=255)
     featured_singers = models.ManyToManyField(Singer, related_name='events')
     poster = models.ImageField(upload_to='events/posters/', blank=True, null=True)
+    gallery_items = models.ManyToManyField(Gallery, blank=True, related_name='events')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
